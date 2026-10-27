@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Growth Audit — Blank Spaces</title>
+<link rel="icon" href="img/icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: only light;
+  /* ---- Blank Spaces, extracted from their live screens ---- */
+  --bs-bg:#000000; --bs-ink:#FFFFFF; --bs-sub:#9B9B9B; --bs-muted:#6B6B6B;
+  --bs-line:rgba(255,255,255,.30); --bs-sel:#FFFFFF; --bs-btn:#1A1A1A; --bs-btnink:#F0F0F0;
+  --bs-card:#1C1C1C; --bs-cta:#FFFFFF; --bs-ctaink:#000000; --bs-red:#D02327; --bs-plum:#532F48;
+  --r-ctl:10px; --r-card:9px;
+  /* ---- the report shell, in Blank Spaces' own palette: black, white, their red ---- */
+  --bg:#050505; --bg2:#121212; --surf:#121212;
+  --hair:rgba(255,255,255,.10); --hair2:rgba(255,255,255,.18);
+  --ink:#F4F4F4; --ink2:#A8A8A8; --ink3:#6F6F6F;
+  --accent:#FFFFFF; --accent-on:#000000; --accent-lift:#F0453F;
+  --panel:#FFFFFF; --panel-ink:#141414; --panel-muted:#666666; --panel-line:#EBEBEB;
+  --accent-ink:#C21F24;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 20px}}
+
+/* ============ top bar ============ */
+.nav{position:sticky;top:0;z-index:70;background:rgba(5,5,5,.86);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--hair)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 32px;height:58px;display:flex;align-items:center;gap:18px}
+@media(max-width:700px){.nav-in{padding:0 16px;gap:12px}}
+.nav-brand{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;letter-spacing:-.01em}
+.nav-brand img{width:26px;height:26px;flex:none;display:block;border-radius:7px;box-shadow:0 0 0 1px rgba(255,255,255,.14)}
+.nav-brand span{color:var(--ink2);font-weight:500}
+.nav-brand b{color:var(--ink);font-weight:600}
+.nav-links{margin-left:auto;display:flex;gap:2px;align-items:center}
+.nav-links button{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink3);transition:.16s}
+.nav-links button:hover{color:var(--ink)}
+.nav-links button.on{color:var(--ink);background:#1C1C1C;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+@media(max-width:640px){.nav-brand span{display:none}}
+
+.view{display:none}
+.view.on{display:block}
+
+/* ============ hero ============ */
+.hero{padding:104px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-340px;left:50%;transform:translateX(-50%);
+  width:1100px;height:640px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(208,35,39,.26),transparent 72%)}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(40% 50% at 8% 20%,rgba(83,47,72,.40),transparent 70%),
+   radial-gradient(38% 45% at 92% 18%,rgba(255,255,255,.06),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lift);margin-bottom:26px}
+.hero h1{font-size:76px;line-height:.98;font-weight:700;letter-spacing:-.045em;margin:0 0 24px}
+@media(max-width:820px){.hero h1{font-size:50px}.hero{padding-top:70px}}
+.hero .lede{font-size:20px;line-height:1.5;font-weight:400;color:var(--ink2);max-width:600px;margin:0 auto;letter-spacing:-.012em}
+@media(max-width:820px){.hero .lede{font-size:17px}}
+.hero .meta{margin-top:30px;font-size:12.5px;color:var(--ink3);letter-spacing:.02em}
+.hero .meta b{color:var(--ink2);font-weight:600}
+
+.stats{display:flex;justify-content:center;gap:0;margin:70px auto 0;max-width:760px;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat{flex:1;padding:26px 14px;text-align:center;border-left:1px solid var(--hair)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.stat span{display:block;font-size:11.5px;color:var(--ink3);margin-top:5px;line-height:1.35}
+@media(max-width:700px){.stat b{font-size:19px}.stat{padding:18px 8px}}
+
+.fb{max-width:760px;margin:0 auto;padding:30px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left}
+@media(max-width:700px){.fb{grid-template-columns:1fr;gap:20px;padding-top:24px}}
+.fb-k{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink3);text-align:center;margin-bottom:-6px}
+.fb-i{display:flex;gap:12px;align-items:flex-start}
+.fb-i .tick{width:18px;height:18px;flex:none;margin-top:3px;border-radius:50%;background:rgba(240,69,63,.18);
+  display:grid;place-items:center}
+.fb-i .tick svg{width:10px;height:10px;stroke:var(--accent-lift);stroke-width:3;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.fb-i p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+.fb-i p b{color:var(--ink);font-weight:700}
+
+.sec{padding:96px 0}
+.sec-k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.sec h2{font-size:38px;line-height:1.14;font-weight:700;letter-spacing:-.035em;margin:0 0 20px;max-width:680px}
+@media(max-width:820px){.sec h2{font-size:29px}.sec{padding:64px 0}}
+.sec p.body{font-size:17px;line-height:1.66;color:var(--ink2);max-width:640px;margin:0 0 18px;letter-spacing:-.008em}
+.sec p.body b{color:var(--ink);font-weight:600}
+.rule{height:1px;background:var(--hair);margin:0}
+
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:820px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{background:var(--surf);border:1px solid var(--hair);border-radius:16px;padding:24px 26px}
+.note h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:0 0 8px}
+.note p{font-size:14px;line-height:1.6;color:var(--ink2);margin:0}
+
+.ideas{display:flex;flex-direction:column;gap:0;margin-top:14px;border-top:1px solid var(--hair)}
+.idea{display:grid;grid-template-columns:52px 1fr 180px;gap:26px;align-items:start;
+  padding:30px 4px;border-bottom:1px solid var(--hair);text-align:left;width:100%;transition:.18s}
+.idea:hover{background:rgba(255,255,255,.035)}
+@media(max-width:780px){.idea{grid-template-columns:38px 1fr;gap:16px}}
+.idea .no{font-size:13px;font-weight:700;color:var(--ink3);padding-top:4px;letter-spacing:.02em}
+.idea h3{font-size:21px;line-height:1.25;font-weight:700;letter-spacing:-.024em;margin:0 0 7px}
+@media(max-width:820px){.idea h3{font-size:18px}}
+.idea p{font-size:14.5px;line-height:1.6;color:var(--ink2);margin:0;max-width:540px}
+.idea .out{text-align:right;padding-top:3px}
+@media(max-width:780px){.idea .out{grid-column:2;text-align:left;padding-top:12px}}
+.idea .out b{display:block;font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--accent-lift);white-space:nowrap}
+.idea .out span{display:block;font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.idea .seeit{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:12.5px;
+  font-weight:600;color:var(--ink)}
+.idea .seeit svg{width:12px;height:12px}
+
+.band{background:var(--surf);border:1px solid var(--hair);border-radius:28px;padding:40px 44px;margin-top:44px;
+  display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+@media(max-width:700px){.band{padding:28px 24px;gap:22px}}
+.band .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.band .txt{flex:1;min-width:240px}
+.band .txt p{font-size:15.5px;line-height:1.6;color:var(--ink2);margin:0}
+.band .nums{display:flex;gap:34px}
+.band .nums div b{display:block;font-size:30px;font-weight:700;letter-spacing:-.035em;color:var(--accent-lift)}
+.band .nums div span{display:block;font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;
+  text-transform:uppercase;font-weight:600}
+
+.cta-row{display:flex;justify-content:center;margin-top:52px;align-items:center;gap:22px;flex-wrap:wrap}
+.bigbtn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:var(--accent-on);
+  font-size:15px;font-weight:700;letter-spacing:-.01em;padding:15px 26px;border-radius:30px;transition:.16s}
+.bigbtn:hover{filter:brightness(.92)}
+.bigbtn svg{width:15px;height:15px}
+
+.foot{border-top:1px solid var(--hair);padding:36px 0 70px;font-size:12.5px;line-height:1.6;color:var(--ink3)}
+
+/* ============ prototype stage ============ */
+.stage{display:grid;grid-template-columns:minmax(440px,1fr) minmax(400px,470px);gap:0;
+  align-items:start;min-height:calc(100vh - 58px)}
+@media(max-width:1080px){.stage{grid-template-columns:1fr}}
+.phonecol{padding:34px 24px 46px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.panelcol{border-left:1px solid var(--hair);background:var(--panel);color:var(--panel-ink);
+  min-height:calc(100vh - 58px);position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto}
+@media(max-width:1080px){.panelcol{position:static;max-height:none;min-height:0;border-left:none;border-top:1px solid var(--hair)}}
+
+.phone{position:relative;width:390px;height:844px;flex:none;background:#000;border:11px solid #000;
+  border-radius:46px;box-shadow:0 0 0 1.5px #2C2C2C,0 34px 80px -22px rgba(0,0,0,.8)}
+.phone-in{position:absolute;inset:0;border-radius:36px;overflow:hidden;background:var(--bs-bg);color-scheme:only light}
+.island{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:30px;background:#000;
+  border-radius:16px;z-index:60;pointer-events:none}
+.sbar{position:absolute;top:0;left:0;right:0;height:50px;z-index:55;pointer-events:none;display:flex;
+  align-items:center;justify-content:space-between;padding:14px 28px 0 34px;font:600 15px/1 'Inter',sans-serif;color:#111;transition:color .3s}
+.sbar.light{color:#fff}
+.sbar .glyphs{display:flex;gap:5px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;
+  border-radius:3px;background:#111;z-index:56;pointer-events:none;transition:background .3s}
+.homebar.light{background:rgba(255,255,255,.9)}
+.screenwrap{position:absolute;inset:0;overflow:hidden;background:var(--bs-bg)}
+
+/* ============ phone screens — Blank Spaces' system, all prefixed scr-/bs- ============ */
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bs-bg);color:var(--bs-ink);
+  font-family:'Inter',-apple-system,sans-serif;
+  transform:translateX(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);z-index:10;will-change:transform}
+.scr.is-active{transform:translateX(0);z-index:20}
+.scr.is-past{transform:translateX(-24%)}
+.scr.sheet{transform:translateY(100%)}
+.scr.sheet.is-active{transform:translateY(0);z-index:30}
+.scr.nofx{transition:none}
+.scr-top{flex:none;padding:56px 22px 0;position:relative;z-index:2}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 22px;scrollbar-width:none;position:relative;z-index:2}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-body.dock{display:flex;flex-direction:column}
+.scr-foot{flex:none;padding:12px 22px 30px;position:relative;z-index:2}
+
+.bs-btn{display:block;width:100%;height:48px;border-radius:var(--r-ctl);background:var(--bs-btn);color:var(--bs-btnink);
+  font:600 15px/1 'Inter',sans-serif;transition:filter .15s}
+.bs-btn:hover{filter:brightness(1.15)}
+.bs-cta{display:block;width:100%;height:50px;border-radius:var(--r-ctl);background:var(--bs-cta);color:var(--bs-ctaink);
+  font:600 16px/1 'Inter',sans-serif}
+.bs-h{font-size:22px;line-height:1.3;font-weight:600;letter-spacing:-.01em;text-align:center;color:var(--bs-ink)}
+
+/* their falling lines */
+.bs-rain{position:absolute;left:0;right:0;top:0;height:46%;overflow:hidden;pointer-events:none;z-index:1;
+  -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent)}
+.bs-rain i{position:absolute;top:-30px;width:1.6px;border-radius:1px;background:var(--bs-ink);animation:fall linear infinite}
+@keyframes fall{from{transform:translateY(-40px)}to{transform:translateY(420px)}}
+
+/* welcome */
+.bs-wart{display:block;width:172px;margin:28px auto 0}
+.bs-wl{text-align:center;font-size:18px;line-height:1.75;margin-top:44px;color:var(--bs-sub);letter-spacing:-.005em}
+.bs-wl b{display:block;color:var(--bs-ink);font-weight:500}
+
+/* their option rows */
+.bs-opts{display:flex;flex-direction:column;gap:12px;margin-top:26px;padding-bottom:8px}
+.bs-opt{display:flex;align-items:center;gap:16px;width:100%;min-height:62px;text-align:left;background:transparent;
+  border:1px solid var(--bs-line);border-radius:var(--r-ctl);padding:0 18px;font:600 14.5px/1.25 'Inter',sans-serif;color:var(--bs-ink);transition:.14s}
+.bs-opt.c{justify-content:center;min-height:48px}
+.bs-opt svg{width:24px;height:24px;flex:none;stroke:var(--bs-ink);stroke-width:1.3;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.bs-opt.on{border:2px solid var(--bs-sel);padding:0 17px}
+
+/* loader */
+.bs-loadwrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding-top:40px}
+.bs-load-h{font-size:22px;font-weight:600;letter-spacing:-.01em;text-align:center;margin:0 0 26px}
+.bs-lsteps{width:100%;max-width:310px;display:flex;flex-direction:column;gap:13px;margin-bottom:30px}
+.bs-ls{display:flex;align-items:center;gap:12px;font-size:14.5px;font-weight:500;color:var(--bs-muted);transition:.35s;line-height:1.3}
+.bs-ls.on{color:var(--bs-ink)}
+.bs-ls .d{width:20px;height:20px;flex:none;border-radius:50%;border:1.3px solid var(--bs-muted);display:grid;place-items:center;transition:.35s}
+.bs-ls.on .d{background:var(--bs-ink);border-color:var(--bs-ink)}
+.bs-ls .d svg{width:11px;height:11px;stroke:var(--bs-bg);stroke-width:3.2;fill:none;opacity:0;stroke-linecap:round;stroke-linejoin:round}
+.bs-ls.on .d svg{opacity:1}
+.bs-quote{width:100%;max-width:320px;background:var(--bs-card);border-radius:var(--r-ctl);padding:14px 16px;min-height:120px}
+.bs-quote .st{color:var(--bs-ink);font-size:13px;letter-spacing:2px}
+.bs-quote p{font-size:13.5px;line-height:1.45;color:var(--bs-ink);margin-top:5px}
+.bs-quote b{display:block;font-size:12px;font-weight:500;color:var(--bs-sub);margin-top:7px}
+
+/* life in weeks — their grid, drawn */
+.bs-wh{font-size:19px;font-weight:600;text-align:center;letter-spacing:-.01em;margin-top:22px}
+.bs-grid{display:block;margin:18px auto 0}
+.bs-pace{font-size:15px;font-weight:600;text-align:center;margin-top:18px}
+.bs-yrs{font-size:42px;line-height:1.1;font-weight:700;text-align:center;letter-spacing:-.01em;
+  background:linear-gradient(90deg,#D02327,#B0233F 60%,#7A2A4A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bs-proj{font-size:11.5px;color:var(--bs-sub);text-align:center;margin-top:3px}
+.bs-thief{margin:16px auto 4px;max-width:320px;text-align:center;font-size:13.5px;line-height:1.45;color:var(--bs-sub)}
+.bs-thief b{display:inline-block;color:var(--bs-ink);font-weight:600;border:1px solid var(--bs-line);border-radius:7px;padding:2px 8px;margin-bottom:6px}
+
+/* paywall — theirs */
+.bs-x{position:absolute;left:18px;top:54px;z-index:5;width:30px;height:30px;display:grid;place-items:center;color:#6A6A6A}
+.bs-x svg{width:17px;height:17px}
+.scr--pay .scr-top{padding:70px 22px 0}
+.bs-ph{font-size:18px;line-height:1.25;font-weight:600;letter-spacing:-.01em;text-align:center}
+.bs-rate{display:flex;justify-content:center;align-items:center;gap:6px;font-size:12.5px;color:var(--bs-sub);margin-top:7px}
+.bs-rate i{font-style:normal;color:var(--bs-ink);letter-spacing:1px;font-size:11.5px}
+.bs-part{display:block;height:288px;margin:12px auto 0}
+.bs-plans{display:flex;flex-direction:column;gap:12px;margin-top:16px;padding-bottom:4px}
+.bs-plan{position:relative;display:flex;align-items:center;justify-content:space-between;width:100%;min-height:52px;text-align:left;
+  background:var(--bs-card);border:2px solid transparent;border-radius:var(--r-card);padding:8px 14px}
+.bs-plan.on{border-color:var(--bs-sel)}
+.bs-plan .t{font-size:15px;font-weight:600}
+.bs-plan .t small{display:block;font-size:11.5px;font-weight:500;margin-top:1px}
+.bs-plan .p{font-size:15px;font-weight:600}
+.bs-badge{position:absolute;top:-11px;right:12px;white-space:nowrap;background:var(--bs-cta);color:var(--bs-ctaink);
+  font:500 12px/1 'Inter',sans-serif;padding:4px 7px;border-radius:6px;letter-spacing:.02em}
+.bs-guar{font-size:11.5px;color:var(--bs-sub);text-align:center;margin:0 0 10px}
+.bs-legal{display:flex;justify-content:space-around;margin-top:12px;font-size:11.5px;color:var(--bs-muted)}
+
+/* offer on close — Lifetime on its own */
+.scr--offer .scr-top{padding:84px 22px 0}
+.bs-oh{font-size:25px;line-height:1.18;font-weight:700;letter-spacing:-.015em;text-align:center}
+.bs-os{font-size:14.5px;line-height:1.45;color:var(--bs-sub);text-align:center;margin-top:9px}
+.bs-feats{display:flex;flex-direction:column;gap:13px;margin:26px 4px 0}
+.bs-feat{display:flex;gap:12px;align-items:center;font-size:15px;font-weight:500}
+.bs-feat svg{width:18px;height:18px;flex:none;stroke:var(--bs-ink);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.bs-cmp{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.bs-plan.dim{opacity:.55}
+
+/* set-up — theirs */
+.bs-setup{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding-bottom:40px}
+.bs-setup h2{font-size:28px;line-height:1.2;font-weight:700;letter-spacing:-.015em;max-width:240px}
+.bs-setup p{font-size:13.5px;color:var(--bs-sub);margin-top:10px}
+.bs-prog{height:14px;border:1.4px solid var(--bs-line);border-radius:8px;padding:2px;margin:8px 4px 0}
+.bs-prog i{display:block;height:100%;border-radius:5px;background:var(--bs-ink)}
+.bs-th{font-size:22px;font-weight:600;text-align:center;margin-top:30px}
+.bs-ths{font-size:15px;color:var(--bs-sub);text-align:center;margin-top:8px}
+.bs-themes{position:relative;height:420px;margin:30px -22px 0;overflow:hidden}
+.bs-tp{position:absolute;top:30px;width:184px;height:330px;border-radius:22px;padding:14px 16px;transition:transform .45s cubic-bezier(.32,.72,0,1),opacity .45s,z-index 0s .2s;
+  display:flex;flex-direction:column;cursor:pointer;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif}
+.bs-tp .tm{font-size:9px;font-weight:600}
+.bs-tp ul{list-style:none;margin:auto 0;padding-left:16px;font-size:16px;line-height:1.18}
+.bs-tp.l{background:#BDBDBD;color:#2E2E2E;border:3px solid #9A9A9A}
+.bs-tp.d{background:#38383A;color:#B5B5B7;border:3px solid #2A2A2C}
+.bs-tp.front{left:calc(50% - 92px);transform:none;z-index:3;opacity:1}
+.bs-tp.rear{left:calc(50% + 2px);transform:rotate(-14deg) translate(40px,26px) scale(.86);z-index:1;opacity:.75}
+.bs-tp.rear.lft{left:calc(50% - 186px);transform:rotate(14deg) translate(-40px,26px) scale(.86)}
+.bs-tbtn{display:block;width:100%;height:48px;border-radius:var(--r-ctl);font:600 15px/1 'Inter',sans-serif;transition:.3s}
+.bs-tbtn.l{background:#D9D9D9;color:#111}
+.bs-tbtn.d{background:#1A1A1A;color:#F0F0F0}
+
+/* light mode — an approximation in your own light launcher theme */
+.phone-in.light{--bs-bg:#F1F1F1; --bs-ink:#111111; --bs-sub:#5E5E5E; --bs-muted:#8E8E8E; --bs-line:rgba(0,0,0,.24); --bs-sel:#111111;
+  --bs-btn:#DADADA; --bs-btnink:#111111; --bs-card:#FFFFFF; --bs-cta:#111111; --bs-ctaink:#FFFFFF; background:var(--bs-bg)}
+.phone-in.light .screenwrap{background:var(--bs-bg)}
+.phone-in.light .bs-wart,.phone-in.light .bs-part{filter:invert(1) hue-rotate(180deg)}
+.phone-in.light .bs-plan:not(.on){border-color:rgba(0,0,0,.06)}
+.phone-in.light .bs-x{color:#9A9A9A}
+
+/* prototype toolbar, walkthrough, QR — shell, dark */
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px}
+.seg{display:inline-flex;align-items:center;background:#141414;border:1px solid #2A2A2A;border-radius:20px;padding:3px;gap:2px}
+.seg button{padding:6px 11px;border-radius:16px;font:600 12px/1 'Inter',sans-serif;color:var(--ink2);transition:.14s}
+.seg button.on{background:var(--ink);color:#000}
+.demo-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:20px;background:var(--accent-lift);color:#fff;
+  font:700 12px/1 'Inter',sans-serif}
+.demo-cap{width:390px;max-width:calc(100vw - 24px);background:#141414;border:1px solid #2A2A2A;border-radius:16px;padding:14px 14px 12px;
+  display:flex;align-items:center;gap:12px;position:relative;overflow:hidden}
+.demo-cap .bar{position:absolute;left:0;top:0;right:0;height:3px;background:#262626}
+.demo-cap .bar i{display:block;height:100%;width:0;background:var(--accent-lift);transition:width .25s linear}
+.demo-cap p{flex:1;font-size:13.5px;line-height:1.45;color:var(--ink);margin:0;font-weight:500}
+.demo-cap button{font:700 12px/1 'Inter',sans-serif;color:var(--ink2);padding:7px 10px;border-radius:12px;border:1px solid #333;flex:none}
+.finger{position:absolute;z-index:90;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(240,69,63,.35);
+  border:2px solid rgba(255,255,255,.95);box-shadow:0 4px 14px rgba(0,0,0,.35);pointer-events:none;opacity:0;left:50%;top:60%;
+  transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1),opacity .2s,transform .15s}
+.finger.show{opacity:1}
+.finger.press{transform:scale(.78);background:rgba(240,69,63,.55)}
+.qr{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:10px 16px 10px 10px;text-align:left}
+.qr img{width:123px;height:123px;display:block;image-rendering:pixelated;border-radius:6px}
+.qr span{font-size:12.5px;line-height:1.45;color:#555}
+.qr b{display:block;color:#111;font-size:13.5px}
+@media(max-width:1080px){.qr{display:none}}
+
+#view-proto .tools{order:0} #view-proto .demo-cap{order:1} #view-proto .phone{order:2} #view-proto .chips{order:3}
+#view-proto .chiphint{order:4} #view-proto .qr{order:5}
+.cta-row .qr{order:2}
+/* on a phone: the prototype is the screen */
+@media(max-width:500px){
+  #view-proto .phonecol{padding:0 0 28px;gap:14px}
+  #view-proto .phone{width:100vw;height:calc(100svh - 58px);min-height:640px;border:0;border-radius:0;box-shadow:none;order:1}
+  #view-proto .phone-in{border-radius:0}
+  #view-proto .island,#view-proto .sbar,#view-proto .homebar{display:none}
+  #view-proto .scr-top{padding-top:16px}
+  #view-proto .scr-foot{padding-bottom:18px}
+  #view-proto .scr--pay .scr-top{padding-top:30px}
+  #view-proto .scr--offer .scr-top{padding-top:50px}
+  #view-proto .bs-x{top:10px}
+  #view-proto .bs-part{height:240px}
+  #view-proto .tools{order:3;padding:0 12px}
+  #view-proto .demo-cap{position:fixed;left:12px;right:12px;bottom:12px;width:auto;max-width:none;z-index:95}
+  #view-proto .chips{order:4;padding:0 12px}
+  #view-proto .chiphint{order:5}
+}
+
+/* overview: walkthrough button */
+.herobtns{display:flex;justify-content:center;margin-top:30px}
+.ghostbtn{display:inline-flex;align-items:center;gap:10px;background:#141414;border:1px solid var(--hair2);color:var(--ink);font-size:14px;
+  font-weight:700;padding:9px 20px 9px 9px;border-radius:30px;transition:.16s}
+.ghostbtn:hover{background:#1C1C1C}
+.ghostbtn .pl{width:30px;height:30px;border-radius:50%;background:var(--accent-lift);display:grid;place-items:center}
+.ghostbtn .pl svg{width:12px;height:12px;fill:#fff;margin-left:2px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:470px;margin:0 auto}
+.chip{padding:7px 13px;border-radius:20px;border:1px solid #2A2A2A;background:#141414;
+  font:600 12px/1 'Inter',sans-serif;color:var(--ink2);transition:.14s}
+.chip:hover{color:var(--ink);border-color:#444}
+.chip.offer{border-style:dashed;border-color:var(--accent-lift);color:var(--accent-lift)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#000;border-style:solid}
+.chiphint{text-align:center;font-size:11px;color:var(--ink3);margin:0;max-width:430px}
+
+/* ============ the short panel ============ */
+.pn{padding:30px 30px 60px}
+.pn-n{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pn-n.ctx{color:var(--panel-muted)}
+.pn-t{font-size:23px;line-height:1.18;font-weight:700;letter-spacing:-.028em;margin:8px 0 0;color:var(--panel-ink)}
+.pn-hyp{font-size:15px;line-height:1.62;color:#333;margin:16px 0 0}
+.pn-hyp b{font-weight:700;color:var(--panel-ink)}
+.pn-out{margin-top:22px;border-top:1px solid var(--panel-line);padding-top:18px}
+.pn-out .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-out .v{font-size:31px;font-weight:700;letter-spacing:-.035em;color:var(--accent-ink);margin-top:7px;line-height:1}
+.pn-kept{margin-top:22px;font-size:12.5px;line-height:1.55;color:var(--panel-muted)}
+.pn-kept b{color:#333;font-weight:700}
+.pn-foot{font-size:11.5px;line-height:1.55;color:var(--panel-muted);border-top:1px solid var(--panel-line);
+  padding-top:14px;margin-top:26px}
+.pn-sep{height:1px;background:var(--panel-line);margin:26px 0}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <img src="img/icon.jpg" alt="Blank Spaces">
+      <b>Growth Audit</b><span>· Blank Spaces</span>
+    </div>
+    <div class="nav-links">
+      <button class="on" data-view="over">Overview</button>
+      <button data-view="proto">Prototype</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Growth Audit · October 2026</div>
+    <h1>Blank Spaces</h1>
+    <p class="lede">Five ideas to unlock more revenue from the traffic you already have.</p>
+    <div class="meta">Prepared by <b>Adapty</b> · based on your live iOS flow and your App Store listing</div>
+    <div class="herobtns"><button class="ghostbtn" data-demo><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></span>Watch the 30-second walkthrough</button></div>
+    <div class="stats">
+      <div class="stat"><b>30,000+</b><span>apps run subscriptions<br>on Adapty</span></div>
+      <div class="stat"><b>5</b><span>ideas, each rebuilt<br>as a working screen</span></div>
+      <div class="stat"><b>0</b><span>design changes<br>to your art direction</span></div>
+    </div>
+
+    <div class="fb">
+      <div class="fb-k">Built in Adapty Flow Builder</div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Millions of dollars</b> in subscription revenue pass through Flow Builder every month.</p>
+      </div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Nearly 500 apps</b> actively build their paywalls and onboarding in it — plenty of them past $100K MRR.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">What this is</div>
+    <h2>We opened Blank Spaces the way a new user does, then rebuilt the parts we think are leaving money on the table.</h2>
+    <p class="body">Adapty powers subscriptions for <b>30,000+ apps</b>, so we get to see what actually moves conversion and ARPU across the market rather than inside one app. We pointed that at Blank Spaces: installed it, went through the onboarding and the set-up, read your App Store listing and your website, and looked for gaps between what you already have and what you currently show people.</p>
+    <p class="body">What follows is five ideas — not fifteen. Each one is a hypothesis you can A/B test, and each one is built into a clickable prototype so you can see it rather than imagine it. <b>The prototype uses your design, not ours.</b></p>
+
+    <div class="notes">
+      <div class="note">
+        <h4>We did not redesign your app</h4>
+        <p>Every screen in the prototype is yours — the falling lines, the outlined answer rows, the life-in-weeks grid and its 27 years, the launcher mockup, the plan cards with HOTTEST and Claim Offer, the theme picker. Only the order changed, plus what the screens say back. This is not a design pitch.</p>
+      </div>
+      <div class="note">
+        <h4>You may have tested some of this</h4>
+        <p>We are working from the outside, so we cannot see your experiment history. If one of these is something you have already run, tell us — we will go deeper on the rest rather than repeat it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">The five ideas</div>
+    <h2>Ranked by what we would test first.</h2>
+    <p class="body">Each one links straight to the screen in the prototype.</p>
+
+    <div class="ideas">
+      <button class="idea" data-jump="offer">
+        <span class="no">01</span>
+        <span>
+          <h3>Offer Lifetime on its own when they close</h3>
+          <p>Your paywall shows Weekly $1.99, Yearly $17.99 and Lifetime $23.99 side by side, and closing it ends the flow. On close, show Lifetime alone: one payment of $23.99, six dollars more than a single year, with your money-back guarantee.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>ARPU +10–15%</b><span>second chance</span></span>
+      </button>
+
+      <button class="idea" data-jump="paywall">
+        <span class="no">02</span>
+        <span>
+          <h3>Name their goal in the paywall headline</h3>
+          <p>“Invest in your attention.” is a strong line, and it can say back what they picked two screens earlier. Someone who chose Time in the day reads “Invest in your time.”, someone who chose focus reads “Invest in your focus.”</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +15–20%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="weeks">
+        <span class="no">03</span>
+        <span>
+          <h3>Name what steals their time under the 27 years</h3>
+          <p>Your life-in-weeks screen is the strongest moment in the flow, and it is the same for everyone. Name the answer they gave one screen earlier — Social media, Notifications or Doomscrolling — and the Blank Spaces feature that deals with it.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–20%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="paywall">
+        <span class="no">04</span>
+        <span>
+          <h3>Put your 4.6 stars on the paywall</h3>
+          <p>8.5K ratings at 4.6 on the US App Store, and a website full of named reviews from people who stopped doomscrolling. None of it appears in the flow. One line under the headline, and one of those reviews while the app personalizes.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="loader">
+        <span class="no">05</span>
+        <span>
+          <h3>Read their answers back before the 27 years</h3>
+          <p>The flow goes straight from the second question to the number. A three-second step that names their goal and their distraction, with a review from someone who had the same problem, makes the number feel like theirs.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+    </div>
+
+    <div class="band">
+      <div class="txt">
+        <div class="lab">Potential outcome</div>
+        <p>Run together, these five make your two questions pay off: the 27 years, the headline and the pause before it all speak back to the person who answered, and closing the paywall is no longer the end.</p>
+      </div>
+      <div class="nums">
+        <div><b>+25%</b><span>CR to purchase</span></div>
+        <div><b>up to +30%</b><span>revenue</span></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for the prototype"><span><b>Or open it on your phone</b>Scan to try the flow in your hand.</span></div>
+      <button class="bigbtn" data-view="proto">Open the prototype
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    Impact ranges are Adapty's expected effect from teardowns and A/B tests across subscription apps — not measured lift for Blank Spaces. Every price, rating, quote and feature line here and in the prototype comes from Blank Spaces' own App Store listing, website and in-app screens.
+  </div>
+</div>
+</div><!-- /view-over -->
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-proto">
+<div class="stage">
+  <div class="phonecol">
+    <div class="tools" id="tools">
+      <div class="seg" id="segLang"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button><button data-lang="de">DE</button></div>
+      <div class="seg" id="segTheme"><button data-theme="light">Light</button><button data-theme="dark" class="on">Dark</button></div>
+      <button class="demo-btn" id="demoBtn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="phone">
+      <div class="phone-in" id="phoneIn">
+        <div class="island"></div>
+        <div class="sbar light" id="sbar">
+          <span>9:41</span>
+          <span class="glyphs">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="5.5" rx="1"/><rect x="9" y="3" width="3" height="8" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.6 7.9a3.4 3.4 0 0 1 4.8 0L8 10.5Zm0-5.6a6.4 6.4 0 0 0-4.5 1.9L1.7 4.9a9 9 0 0 1 12.6 0l-1.8 1.9A6.4 6.4 0 0 0 8 4.9Z"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.5" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.3 4.1v3.8a2 2 0 0 0 0-3.8Z" fill="currentColor" fill-opacity=".5"/></svg>
+          </span>
+        </div>
+        <div class="homebar light" id="homebar"></div>
+        <div class="finger" id="finger"></div>
+        <div class="screenwrap">
+
+<!-- WELCOME -->
+<section class="scr" data-id="welcome">
+  <div class="scr-top"></div>
+  <div class="scr-body">
+    <img class="bs-wart" src="img/art-welcome.png" alt="">
+    <p class="bs-wl"><b data-t="wel.1"></b><span data-t="wel.2"></span><br><span data-t="wel.3"></span></p>
+  </div>
+  <div class="scr-foot"><button class="bs-btn" data-go="goals" data-t="cont"></button></div>
+</section>
+
+<!-- GOAL -->
+<section class="scr" data-id="goals">
+  <div class="bs-rain"></div>
+  <div class="scr-top" style="padding-top:196px"><h2 class="bs-h" data-t="goal.h"></h2></div>
+  <div class="scr-body"><div class="bs-opts" id="goalList"></div></div>
+  <div class="scr-foot"></div>
+</section>
+
+<!-- WHAT STEALS YOUR TIME -->
+<section class="scr" data-id="steals">
+  <div class="bs-rain"></div>
+  <div class="scr-top" style="padding-top:224px"><h2 class="bs-h" data-t="st.h"></h2></div>
+  <div class="scr-body"><div class="bs-opts" id="stealList"></div></div>
+  <div class="scr-foot"></div>
+</section>
+
+<!-- LOADER -->
+<section class="scr" data-id="loader">
+  <div class="bs-rain"></div>
+  <div class="scr-top" style="padding-top:0"></div>
+  <div class="scr-body">
+    <div class="bs-loadwrap">
+      <h2 class="bs-load-h" data-t="ld.h"></h2>
+      <div class="bs-lsteps" id="loadSteps"></div>
+      <div class="bs-quote"><div class="st">★★★★★</div><p id="qText"></p><b id="qWho"></b></div>
+    </div>
+  </div>
+  <div class="scr-foot"></div>
+</section>
+
+<!-- LIFE IN WEEKS -->
+<section class="scr" data-id="weeks">
+  <div class="scr-top"><h2 class="bs-wh" data-t="wk.h"></h2></div>
+  <div class="scr-body">
+    <canvas class="bs-grid" id="grid" width="290" height="376"></canvas>
+    <p class="bs-pace" data-t="wk.pace"></p>
+    <p class="bs-yrs" data-t="wk.yrs"></p>
+    <p class="bs-proj" data-t="wk.proj"></p>
+    <p class="bs-thief" id="thief"></p>
+  </div>
+  <div class="scr-foot"><button class="bs-btn" data-go="paywall" data-t="cont"></button></div>
+</section>
+
+<!-- PAYWALL -->
+<section class="scr scr--pay" data-id="paywall">
+  <button class="bs-x" id="payClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="scr-top">
+    <h2 class="bs-ph" id="payH"></h2>
+    <p class="bs-rate"><i>★★★★★</i><span data-t="pw.rate"></span></p>
+  </div>
+  <div class="scr-body">
+    <img class="bs-part" src="img/art-pay.png" alt="">
+    <div class="bs-plans" id="planList">
+      <button class="bs-plan" data-v="week"><span class="t" data-t="pw.w"></span><span class="p">$1.99</span></button>
+      <button class="bs-plan" data-v="year"><span class="bs-badge" data-t="pw.hot"></span><span class="t" data-t="pw.y"></span><span class="p">$17.99</span></button>
+      <button class="bs-plan" data-v="life"><span class="t"><span data-t="pw.l"></span><small data-t="pw.once"></small></span><span class="p">$23.99</span></button>
+    </div>
+  </div>
+  <div class="scr-foot">
+    <p class="bs-guar" data-t="pw.guar"></p>
+    <button class="bs-cta" id="payCta" data-t="pw.cta"></button>
+    <div class="bs-legal"><span data-t="lg.terms"></span><span data-t="lg.priv"></span><span data-t="lg.rest"></span></div>
+  </div>
+</section>
+
+<!-- OFFER ON CLOSE -->
+<section class="scr scr--offer sheet" data-id="offer">
+  <button class="bs-x" id="offClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="scr-top">
+    <h2 class="bs-oh" id="offH"></h2>
+    <p class="bs-os" data-t="of.s"></p>
+  </div>
+  <div class="scr-body">
+    <div class="bs-feats" id="feats"></div>
+    <div class="bs-cmp">
+      <div class="bs-plan dim"><span class="t" data-t="of.y3"></span><span class="p">$53.97</span></div>
+      <div class="bs-plan on"><span class="t"><span data-t="pw.l"></span><small data-t="pw.once"></small></span><span class="p">$23.99</span></div>
+    </div>
+  </div>
+  <div class="scr-foot">
+    <p class="bs-guar" data-t="pw.guar"></p>
+    <button class="bs-cta" id="offerCta" data-t="pw.cta"></button>
+    <div class="bs-legal"><span data-t="lg.terms"></span><span data-t="lg.priv"></span><span data-t="lg.rest"></span></div>
+  </div>
+</section>
+
+<!-- SET-UP INTRO -->
+<section class="scr" data-id="setup">
+  <div class="bs-rain"></div>
+  <div class="scr-top"></div>
+  <div class="scr-body" id="setupBody" style="cursor:pointer"><div class="bs-setup"><h2 data-t="su.h"></h2><p data-t="su.s"></p></div></div>
+  <div class="scr-foot"></div>
+</section>
+
+<!-- THEME -->
+<section class="scr" data-id="theme">
+  <div class="scr-top">
+    <div class="bs-prog"><i style="width:30%"></i></div>
+    <h2 class="bs-th" data-t="th.h"></h2>
+    <p class="bs-ths" data-t="th.s"></p>
+  </div>
+  <div class="scr-body">
+    <div class="bs-themes" id="themes">
+      <div class="bs-tp l" data-v="l"><span class="tm">9:41</span><ul><li>Messages</li><li>Calendar</li><li>Photos</li><li>Safari</li><li>Notes</li></ul></div>
+      <div class="bs-tp d" data-v="d"><span class="tm">9:41</span><ul><li>Messages</li><li>Calendar</li><li>Photos</li><li>Safari</li><li>Notes</li></ul></div>
+    </div>
+  </div>
+  <div class="scr-foot"><button class="bs-tbtn" id="themeBtn"></button></div>
+</section>
+
+        </div>
+      </div>
+    </div>
+    <div class="demo-cap hidden" id="demoCap"><div class="bar"><i id="demoProg"></i></div><p id="demoTxt"></p><button id="demoStop">Stop</button></div>
+    <div class="chips" id="chips"></div>
+    <p class="chiphint">Jump to any screen — answers already filled in.</p>
+    <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for this prototype"><span><b>Open it on your phone</b>Scan to try the flow in your hand.</span></div>
+  </div>
+  <div class="panelcol"><div class="pn" id="panel"></div></div>
+</div>
+</div><!-- /view-proto -->
+
+<script>
+/* ================= copy, per language (phone screens only) ================= */
+var LANGS = ['en','es','de'];
+var T = {
+ 'cont':   ["Continue","Continuar","Weiter"],
+ 'wel.1':  ["Screens","Las pantallas","Bildschirme"],
+ 'wel.2':  ["hijack our time","secuestran nuestro tiempo","rauben unsere Zeit"],
+ 'wel.3':  ["and steal our focus.","y roban nuestra atención.","und stehlen unseren Fokus."],
+ 'goal.h': ["What would you like to improve first?","¿Qué te gustaría mejorar primero?","Was möchtest du zuerst verbessern?"],
+ 'st.h':   ["What steals your time?","¿Qué te roba el tiempo?","Was stiehlt deine Zeit?"],
+ 'ld.h':   ["Personalizing Blank Spaces…","Personalizando Blank Spaces…","Blank Spaces wird angepasst…"],
+ 'ld.goal':["Goal: {x}","Objetivo: {x}","Ziel: {x}"],
+ 'ld.list':["Turning your home screen into a list","Convirtiendo tu pantalla de inicio en una lista","Dein Home-Bildschirm wird zur Liste"],
+ 'ld.streak':["Starting your focus streak","Iniciando tu racha de concentración","Deine Fokus-Serie startet"],
+ 'wk.h':   ["This is your life in weeks.","Esta es tu vida en semanas.","Das ist dein Leben in Wochen."],
+ 'wk.pace':["Your phone is on pace to steal","Tu móvil va camino de robarte","Dein Handy stiehlt dir in diesem Tempo"],
+ 'wk.yrs': ["27 years","27 años","27 Jahre"],
+ 'wk.proj':["Projection of current screen time habits","Proyección de tus hábitos actuales de pantalla","Hochrechnung deiner aktuellen Bildschirmzeit"],
+ 'wk.thief':["Biggest thief: {x}","Tu mayor ladrón: {x}","Größter Zeitdieb: {x}"],
+ 'pw.rate':["4.6 · 8.5K ratings on the App Store","4,6 · 8,5 mil valoraciones en App Store","4,6 · 8.500 Bewertungen im App Store"],
+ 'pw.w':   ["Weekly","Semanal","Wöchentlich"],
+ 'pw.y':   ["Yearly","Anual","Jährlich"],
+ 'pw.l':   ["Lifetime","De por vida","Lebenslang"],
+ 'pw.once':["One payment","Un solo pago","Einmalzahlung"],
+ 'pw.hot': ["HOTTEST","POPULAR","BELIEBT"],
+ 'pw.guar':["100% money back guarantee","Garantía de devolución del 100%","100 % Geld-zurück-Garantie"],
+ 'pw.cta': ["Claim Offer","Reclamar oferta","Angebot sichern"],
+ 'lg.terms':["Terms","Términos","AGB"], 'lg.priv':["Privacy","Privacidad","Datenschutz"], 'lg.rest':["Restore","Restaurar","Wiederherstellen"],
+ 'of.s':   ["Lifetime access to Blank Spaces for one payment of $23.99.","Acceso de por vida a Blank Spaces con un solo pago de $23.99.","Lebenslanger Zugang zu Blank Spaces für eine Zahlung von $23.99."],
+ 'of.y3':  ["Yearly, over 3 years","Anual, en 3 años","Jährlich, über 3 Jahre"],
+ 'su.h':   ["Let's get you set up","Vamos a configurarlo todo","Lass uns alles einrichten"],
+ 'su.s':   ["(takes ~2 minutes)","(tarda ~2 minutos)","(dauert ~2 Minuten)"],
+ 'th.h':   ["Choose a theme","Elige un tema","Wähle ein Design"],
+ 'th.s':   ["You can always change this later.","Puedes cambiarlo cuando quieras.","Du kannst es jederzeit ändern."],
+ 'th.l':   ["Theme for light mode","Tema para modo claro","Design für hellen Modus"],
+ 'th.d':   ["Theme for dark mode","Tema para modo oscuro","Design für dunklen Modus"]
+};
+var GOALS = {
+  focus:{t:['Focus and productivity','Concentración y productividad','Fokus und Produktivität'],
+         pay:['Invest in your focus.','Invierte en tu concentración.','Investiere in deinen Fokus.'],
+         off:['Pay once. Keep your focus.','Paga una vez. Conserva tu concentración.','Einmal zahlen. Deinen Fokus behalten.'],
+         ic:'<svg viewBox="0 0 24 24"><path d="M8 3h8l2 5-6 13L6 8z"/><path d="M6 8h12M10 3l-1 5 3 13M14 3l1 5-3 13"/></svg>'},
+  time: {t:['Time in the day','Tiempo en el día','Zeit im Alltag'],
+         pay:['Invest in your time.','Invierte en tu tiempo.','Investiere in deine Zeit.'],
+         off:['Pay once. Keep your time.','Paga una vez. Conserva tu tiempo.','Einmal zahlen. Deine Zeit behalten.'],
+         ic:'<svg viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M7 3c0 5 10 6 10 9s-10 4-10 9M17 3c0 5-10 6-10 9s10 4 10 9"/></svg>'},
+  well: {t:['Overall mental wellness','Bienestar mental general','Mentales Wohlbefinden'],
+         pay:['Invest in your wellbeing.','Invierte en tu bienestar.','Investiere in dein Wohlbefinden.'],
+         off:['Pay once. Keep your peace of mind.','Paga una vez. Conserva tu calma.','Einmal zahlen. Deine Ruhe behalten.'],
+         ic:'<svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M12 6l1.5 4.5L18 12l-4.5 1.5L12 18l-1.5-4.5L6 12l4.5-1.5z"/></svg>'}
+};
+var GOAL_ORDER=['focus','time','well'];
+var STEALS = {
+  social:{t:['Social media','Redes sociales','Soziale Medien'],
+          ld:['Locking social apps behind a breath','Bloqueando las redes tras una respiración','Social-Apps hinter einer Atemübung sperren'],
+          fix:['Blank Spaces locks your social apps until you take a breath or do push-ups.','Blank Spaces bloquea tus redes hasta que respires hondo o hagas flexiones.','Blank Spaces sperrt deine Social-Apps, bis du durchatmest oder Liegestütze machst.']},
+  notif: {t:['Notifications','Notificaciones','Mitteilungen'],
+          ld:['Removing icons and badges','Quitando iconos y globos','Icons und Kennzeichen entfernen'],
+          fix:['Blank Spaces swaps icons and badges for a clean list of the apps you need.','Blank Spaces cambia iconos y globos por una lista limpia de tus apps.','Blank Spaces ersetzt Icons und Kennzeichen durch eine klare Liste deiner Apps.']},
+  doom:  {t:['Doomscrolling','Doomscrolling','Doomscrolling'],
+          ld:['Adding a pause before the feeds','Añadiendo una pausa antes de los feeds','Eine Pause vor die Feeds setzen'],
+          fix:['Blank Spaces interrupts the feed before it opens. Unlock it with a breath or push-ups.','Blank Spaces interrumpe el feed antes de abrirse. Desbloquéalo respirando o con flexiones.','Blank Spaces unterbricht den Feed, bevor er öffnet. Entsperren mit Atemübung oder Liegestützen.']}
+};
+var STEAL_ORDER=['social','notif','doom'];
+var FEATS = [
+  ['Your apps in a clean text list','Tus apps en una lista de texto limpia','Deine Apps als klare Textliste'],
+  ['Lock distracting apps on a schedule','Bloquea las apps que distraen con horario','Ablenkende Apps nach Zeitplan sperren'],
+  ['Unlock with a breath or push-ups','Desbloquea respirando o con flexiones','Entsperren mit Atemübung oder Liegestützen'],
+  ['Track your streak','Sigue tu racha','Verfolge deine Serie']
+];
+/* reviews from your own website, word for word, matched to what steals their time */
+var QUOTES = {
+  social:['Does exactly what it promises. Shows only my essential apps in a simple list and removes social distractions. I feel more focused and like I\'m getting hours back.','Sarah M.'],
+  notif: ['The breathing exercise is genius. It creates just enough friction that I stop and think \'do I actually need to open this?\'...','Alex P.'],
+  doom:  ['My mornings are mine again. I read books now instead of doomscrolling through Twitter for an hour. If you\'re on the fence just try it.','Mia T.']
+};
+
+/* ================= state ================= */
+function defaults(){ return { lang:S0.lang, theme:S0.theme, goal:'time', steal:'social', plan:'year', tp:'d' }; }
+var S0 = {lang:'en', theme:'dark'};
+var S = defaults();
+function L(){ return LANGS.indexOf(S.lang); }
+function t(k,v){ var s=(T[k]||[k])[L()]; if(v) Object.keys(v).forEach(function(x){ s=s.split('{'+x+'}').join(v[x]); }); return s; }
+
+/* ================= builders (re-run on language change) ================= */
+var AUTO=null;
+function buildGoals(){ var g=document.getElementById('goalList'), li=L(); g.innerHTML='';
+  GOAL_ORDER.forEach(function(k){ var b=document.createElement('button'); b.className='bs-opt'; b.dataset.v=k;
+    b.innerHTML=GOALS[k].ic+'<span>'+GOALS[k].t[li]+'</span>';
+    b.addEventListener('click',function(){ S.goal=k; syncScreen(); clearTimeout(AUTO); AUTO=setTimeout(function(){ if(cur==='goals') go('steals'); },320); });
+    g.appendChild(b); }); }
+function buildSteals(){ var g=document.getElementById('stealList'), li=L(); g.innerHTML='';
+  STEAL_ORDER.forEach(function(k){ var b=document.createElement('button'); b.className='bs-opt c'; b.dataset.v=k; b.textContent=STEALS[k].t[li];
+    b.addEventListener('click',function(){ S.steal=k; syncScreen(); clearTimeout(AUTO); AUTO=setTimeout(function(){ if(cur==='steals') go('loader'); },320); });
+    g.appendChild(b); }); }
+function buildFeats(){ var li=L(), ck='<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+  document.getElementById('feats').innerHTML=FEATS.map(function(f){ return '<div class="bs-feat">'+ck+'<span>'+f[li]+'</span></div>'; }).join(''); }
+function rain(){ document.querySelectorAll('.bs-rain').forEach(function(r){ if(r.children.length) return; var h='';
+  for(var i=0;i<16;i++){ var x=4+Math.random()*92, len=10+Math.random()*22, d=2.6+Math.random()*3.2, dl=-Math.random()*5, op=.25+Math.random()*.7;
+    h+='<i style="left:'+x.toFixed(1)+'%;height:'+len.toFixed(0)+'px;opacity:'+op.toFixed(2)+';animation-duration:'+d.toFixed(2)+'s;animation-delay:'+dl.toFixed(2)+'s"></i>'; }
+  r.innerHTML=h; }); }
+function applyStatic(){
+  document.documentElement.lang=S.lang;
+  document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent=t(el.dataset.t); });
+  document.querySelectorAll('[data-th]').forEach(function(el){ el.innerHTML=t(el.dataset.th); });
+  buildGoals(); buildSteals(); buildFeats();
+}
+
+/* ================= life in weeks — their grid, drawn: 27 of 72 rows ================= */
+function drawWeeks(){
+  var c=document.getElementById('grid'), dpr=window.devicePixelRatio||1, W=290, H=376, cols=52, rows=72;
+  c.width=W*dpr; c.height=H*dpr; c.style.width=W+'px'; c.style.height=H+'px';
+  var x=c.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
+  var px=W/cols, py=H/rows, sz=Math.min(px,py)*.78, ink=getComputedStyle(document.getElementById('phoneIn')).getPropertyValue('--bs-ink').trim()||'#fff';
+  var total=cols*rows, lost=27*cols, start=total-lost-Math.round(cols*.55);
+  for(var i=0;i<total;i++){ var cx=i%cols, cy=Math.floor(i/cols);
+    if(i<start){ x.fillStyle=ink; }
+    else { var ry=(cy-(rows-27))/27, f=Math.max(0,Math.min(1,(cx/(cols-1))*.75+ry*.55-.42)), r=Math.round(208+(83-208)*f), g=Math.round(35+(47-35)*f), b=Math.round(39+(72-39)*f); x.fillStyle='rgb('+r+','+g+','+b+')'; }
+    x.fillRect(cx*px+(px-sz)/2, cy*py+(py-sz)/2, sz, sz); }
+}
+
+/* ================= everything downstream reads S ================= */
+function syncScreen(){
+  var li=L(), G=GOALS[S.goal], St=STEALS[S.steal];
+  document.querySelectorAll('#goalList .bs-opt').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.goal); });
+  document.querySelectorAll('#stealList .bs-opt').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.steal); });
+
+  /* loader: their answers, read back */
+  var steps=[t('ld.goal',{x:G.t[li].toLowerCase()}), St.ld[li], t('ld.list'), t('ld.streak')];
+  document.getElementById('loadSteps').innerHTML=steps.map(function(s){ return '<div class="bs-ls"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span>'+s+'</span></div>'; }).join('');
+  var q=QUOTES[S.steal];
+  document.getElementById('qText').textContent='“'+q[0]+'”'; document.getElementById('qWho').textContent='— '+q[1]+', blankspaces.app';
+
+  /* life in weeks: what steals it, and what Blank Spaces does about it */
+  document.getElementById('thief').innerHTML='<b>'+t('wk.thief',{x:St.t[li]})+'</b><br>'+St.fix[li];
+
+  /* paywall + offer: their goal in your headline */
+  document.getElementById('payH').textContent=G.pay[li];
+  document.getElementById('offH').textContent=G.off[li];
+  document.querySelectorAll('#planList .bs-plan').forEach(function(b){ b.classList.toggle('on', b.dataset.v===S.plan); });
+
+  /* theme picker */
+  var tl=document.querySelector('.bs-tp.l'), td=document.querySelector('.bs-tp.d');
+  tl.className='bs-tp l '+(S.tp==='l'?'front':'rear'); td.className='bs-tp d '+(S.tp==='d'?'front':'rear lft');
+  var tb=document.getElementById('themeBtn'); tb.className='bs-tbtn '+S.tp; tb.textContent=t(S.tp==='l'?'th.l':'th.d');
+  drawWeeks();
+}
+
+/* ================= router ================= */
+var ORDER=['welcome','goals','steals','loader','weeks','paywall','offer','setup','theme'];
+var LABEL={welcome:'Welcome',goals:'Goal',steals:'What steals time',loader:'Loader',weeks:'Life in weeks',paywall:'Paywall',offer:'Offer on close',setup:'Set-up',theme:'Theme'};
+var scr={}, hist=[], cur='welcome', loadTimers=[];
+document.querySelectorAll('.scr').forEach(function(s){ scr[s.dataset.id]=s; });
+
+function chrome(){ var light=S.theme==='light';
+  document.getElementById('sbar').classList.toggle('light',!light); document.getElementById('homebar').classList.toggle('light',!light); }
+function enter(id){ chrome(); paintChips(); paintPanel(); clearLoad(); if(id==='loader') runLoader(); if(id==='setup') runSetup(); }
+function go(id,opts){
+  opts=opts||{}; if(id===cur) return;
+  var from=scr[cur], to=scr[id];
+  if(!opts.back) hist.push(cur);
+  if(from){ from.classList.remove('is-active');
+    if(!to.classList.contains('sheet') && !from.classList.contains('sheet')) from.classList.add('is-past'); }
+  Object.keys(scr).forEach(function(k){ if(k!==id&&k!==cur) scr[k].classList.remove('is-active'); });
+  if(to.classList.contains('sheet')) from.classList.add('is-active');
+  to.classList.remove('is-past'); to.classList.add('is-active');
+  cur=id; enter(id);
+}
+function back(){
+  if(!hist.length) return;
+  var prev=hist.pop();
+  scr[cur].classList.remove('is-active');
+  scr[prev].classList.remove('is-past'); scr[prev].classList.add('is-active');
+  cur=prev; enter(prev);
+}
+function jump(id){
+  var i=ORDER.indexOf(id); clearTimeout(AUTO);
+  Object.keys(scr).forEach(function(k){ scr[k].classList.add('nofx'); scr[k].classList.remove('is-active','is-past'); });
+  hist=ORDER.slice(0,i<0?0:i).filter(function(k){ return k!=='loader'&&k!=='offer'&&k!=='setup'; });
+  if(id==='offer') scr.paywall.classList.add('is-active');
+  scr[id].classList.add('is-active'); cur=id;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    Object.keys(scr).forEach(function(k){ scr[k].classList.remove('nofx'); }); }); });
+  syncScreen(); enter(id);
+}
+function paintChips(){
+  var c=document.getElementById('chips');
+  if(!c.children.length){
+    ORDER.forEach(function(id){
+      var b=document.createElement('button'); b.className='chip'+(id==='offer'?' offer':''); b.textContent=LABEL[id];
+      b.dataset.id=id; b.onclick=function(){ stopDemo(); jump(id); }; c.appendChild(b);
+    });
+  }
+  c.querySelectorAll('.chip').forEach(function(b){ b.classList.toggle('on', b.dataset.id===cur); });
+}
+function clearLoad(){ loadTimers.forEach(clearTimeout); loadTimers=[]; }
+function runLoader(){
+  var k=demo.on?0.48:1, steps=[].slice.call(document.querySelectorAll('#loadSteps .bs-ls'));
+  steps.forEach(function(s){ s.classList.remove('on'); });
+  steps.forEach(function(s,i){ loadTimers.push(setTimeout(function(){ s.classList.add('on'); },(500+i*700)*k)); });
+  loadTimers.push(setTimeout(function(){ if(cur==='loader') go('weeks'); },(1300+steps.length*700)*k));
+}
+function runSetup(){ loadTimers.push(setTimeout(function(){ if(cur==='setup') go('theme'); },2600)); }
+
+/* ================= wiring ================= */
+document.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click',function(){ if(!b.disabled) go(b.dataset.go); }); });
+document.querySelectorAll('#planList .bs-plan').forEach(function(b){ b.addEventListener('click',function(){ S.plan=b.dataset.v; syncScreen(); }); });
+document.getElementById('payClose').addEventListener('click',function(){ go('offer'); });
+document.getElementById('offClose').addEventListener('click',function(){ jump('welcome'); });
+document.getElementById('payCta').addEventListener('click',function(){ go('setup'); });
+document.getElementById('offerCta').addEventListener('click',function(){ go('setup'); });
+document.getElementById('setupBody').addEventListener('click',function(){ go('theme'); });
+document.querySelectorAll('.bs-tp').forEach(function(p){ p.addEventListener('click',function(){ S.tp=p.dataset.v; syncScreen(); }); });
+document.getElementById('themeBtn').addEventListener('click',function(){ jump('welcome'); });
+
+function setSeg(id,attr,val){ document.querySelectorAll('#'+id+' button').forEach(function(b){ b.classList.toggle('on', b.dataset[attr]===val); }); }
+function setLang(l){ S.lang=l; S0.lang=l; setSeg('segLang','lang',l); applyStatic(); syncScreen(); paintPanel(); }
+function setTheme(th){ S.theme=th; S0.theme=th; document.getElementById('phoneIn').classList.toggle('light',th==='light'); setSeg('segTheme','theme',th); chrome(); drawWeeks(); }
+document.querySelectorAll('#segLang button').forEach(function(b){ b.addEventListener('click',function(){ stopDemo(); setLang(b.dataset.lang); }); });
+document.querySelectorAll('#segTheme button').forEach(function(b){ b.addEventListener('click',function(){ setTheme(b.dataset.theme); }); });
+
+/* ================= the 30-second walkthrough ================= */
+var demo={tok:0,on:false,t0:0,iv:null}, finger=document.getElementById('finger'), phoneIn=document.getElementById('phoneIn');
+function W(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+function cap(txt){ document.getElementById('demoTxt').textContent=txt; }
+async function tap(sel,tok){
+  if(demo.tok!==tok) throw 0;
+  var el=document.querySelector(sel); if(!el) return;
+  el.scrollIntoView({block:'nearest'});
+  var r=el.getBoundingClientRect(), p=phoneIn.getBoundingClientRect(), z=p.width/phoneIn.offsetWidth||1;
+  finger.style.left=((r.left-p.left+r.width/2)/z)+'px'; finger.style.top=((r.top-p.top+r.height/2)/z)+'px';
+  finger.classList.add('show'); await W(380); if(demo.tok!==tok) throw 0;
+  finger.classList.add('press'); await W(120); finger.classList.remove('press'); el.click(); await W(160);
+  if(demo.tok!==tok) throw 0;
+}
+async function pause(ms,tok){ await W(ms); if(demo.tok!==tok) throw 0; }
+function startDemo(){
+  stopDemo(); var tok=++demo.tok; demo.on=true; demo.t0=Date.now();
+  var keep={lang:S.lang,theme:S.theme}; S=defaults(); S.lang=keep.lang; S.theme=keep.theme;
+  applyStatic(); jump('welcome');
+  document.getElementById('demoCap').classList.remove('hidden');
+  demo.iv=setInterval(function(){ document.getElementById('demoProg').style.width=Math.min(100,(Date.now()-demo.t0)/210)+'%'; },200);
+  (async function(){
+    try{
+      cap('Your opening screen, unchanged.'); await pause(1300,tok);
+      await tap('[data-id=welcome] .bs-btn',tok);
+      cap('What they want to improve first — say, focus.'); await pause(700,tok);
+      await tap('#goalList [data-v=focus]',tok); await pause(650,tok);
+      cap('What steals their time — doomscrolling.'); await pause(500,tok);
+      await tap('#stealList [data-v=doom]',tok); await pause(450,tok);
+      cap('Their answers read back, with a review from someone who quit doomscrolling.'); await pause(2200,tok);
+      cap('Your 27 years, now naming their biggest thief and what Blank Spaces does about it.'); await pause(2800,tok);
+      await tap('[data-id=weeks] .bs-btn',tok);
+      cap('The paywall says “Invest in your focus.”, with your 4.6 stars under it.'); await pause(1800,tok);
+      await tap('#planList [data-v=life]',tok); await pause(500,tok); await tap('#planList [data-v=year]',tok); await pause(400,tok);
+      cap('They close it. Lifetime on its own: $23.99 once, money back guaranteed.'); await tap('#payClose',tok); await pause(2800,tok);
+      cap('That is the flow. Set-up and your theme picker still follow the purchase.');
+      finger.classList.remove('show'); await pause(2200,tok); stopDemo();
+    }catch(e){}
+  })();
+}
+function stopDemo(){ if(!demo.on) return; demo.tok++; demo.on=false; clearInterval(demo.iv); finger.classList.remove('show','press');
+  document.getElementById('demoCap').classList.add('hidden'); }
+document.getElementById('demoBtn').addEventListener('click',startDemo);
+document.getElementById('demoStop').addEventListener('click',stopDemo);
+phoneIn.addEventListener('pointerdown',function(e){ if(e.isTrusted && demo.on) stopDemo(); });
+</script>
+<script>
+/* ---- the short panel: hypothesis + potential outcome, nothing else ---- */
+var PANEL = {
+welcome:{ctx:true,t:'Screens hijack our time',
+ kept:'Your opening screen as it ships — the phone outline with its spiral, the three lines in white and grey, the dark Continue button.'},
+goals:{ctx:true,t:'What would you like to improve first?',
+ kept:'Untouched — the falling lines, your three answers with their line icons, one tap to move on. The answer now names the loader, the paywall headline and the offer.'},
+steals:{ctx:true,t:'What steals your time?',
+ kept:'Untouched — Social media, Notifications and Doomscrolling, one tap to move on. The answer is now read back on the loader and under the 27 years, and picks the review.'},
+loader:{n:5,t:'Read their answers back before the 27 years',
+ hyp:'Try a three-second step that names their goal and what steals their time, with a review from your website by someone who had the same problem, <b>because a hard number lands harder when the person has just watched their own answers being used</b>. Today the second question leads straight to it.',
+ kept:'Your black screen, your falling lines and your white type. The reviews are from blankspaces.app, word for word.',
+ out:'CR +10–15%'},
+weeks:{n:3,t:'Name what steals their time under the 27 years',
+ hyp:'Try adding one line under your projection that names their biggest thief and the feature that deals with it, <b>because this is the moment they feel the cost, and today the screen does not mention the answer they gave a moment ago</b>. Go back and pick Notifications — the line changes.',
+ kept:'Your headline, the week grid in white and red-to-plum, “Your phone is on pace to steal 27 years” and the projection line, unchanged. The features are from your App Store listing.',
+ out:'CR +10–20%'},
+paywall:{n:2,t:'Name their goal in the paywall headline',
+ hyp:'Try your headline with the goal they picked in it — “Invest in your time.”, “Invest in your focus.” — <b>because it is the first thing they read at the price, and “attention” is close to their answer but not quite it</b>. Go back and pick another goal — the headline follows.',
+ out:'CR +15–20%',
+ n2:4,t2:'Put your 4.6 stars on the paywall',
+ hyp2:'Try one line under the headline with your App Store rating, <b>because 8.5K people have rated Blank Spaces 4.6 and nobody deciding on $17.99 a year gets to see it</b>.',
+ out2:'CR +10–15%',
+ kept:'Your launcher mockup, the three plan cards with HOTTEST, $1.99, $17.99 and $23.99, the money-back line, the white Claim Offer button and Terms, Privacy, Restore. Your frame shows no close button, so the faint X is ours.'},
+offer:{n:1,t:'Offer Lifetime on its own when they close',
+ hyp:'Try Lifetime alone when someone closes the paywall — $23.99 once, next to what three years of Yearly costs — <b>because a person who will not commit to a subscription may still pay once, and today closing simply ends the flow</b>. Both prices are your own.',
+ kept:'Your plan card with “One payment”, the money-back line, Claim Offer and the legal row. The four feature lines are from your App Store listing.',
+ out:'ARPU +10–15%'},
+setup:{ctx:true,t:'Let’s get you set up',
+ kept:'Untouched and still after the paywall, where it belongs — the falling lines and “(takes ~2 minutes)”.'},
+theme:{ctx:true,t:'Choose a theme',
+ kept:'Untouched — the outlined progress bar, your two launcher previews and the button that names the theme. Tap the back phone to switch.'}
+};
+
+function outBlock(lab,val){
+  return '<div class="pn-out"><div class="lab">'+lab+'</div><div class="v">'+val+'</div></div>';
+}
+function paintPanel(){
+  var d=PANEL[cur]; if(!d) return;
+  var h='';
+  if(d.ctx){
+    h += '<div class="pn-n ctx">Context · no change proposed</div><h3 class="pn-t">'+d.t+'</h3>'
+       + '<div class="pn-kept">'+d.kept+'</div>';
+  } else {
+    h += '<div class="pn-n">Idea '+d.n+' of 5</div><h3 class="pn-t">'+d.t+'</h3>'
+       + '<p class="pn-hyp">'+d.hyp+'</p>'
+       + outBlock('Potential outcome · based on Adapty data', d.out);
+    if(d.n2) h += '<div class="pn-sep"></div><div class="pn-n">Idea '+d.n2+' of 5</div><h3 class="pn-t">'+d.t2+'</h3>'
+       + '<p class="pn-hyp">'+d.hyp2+'</p>' + outBlock('Potential outcome · based on Adapty data', d.out2);
+    h += '<div class="pn-kept"><b>Your design, unchanged.</b> '+d.kept+'</div>';
+  }
+  if(S.lang!=='en') h += '<div class="pn-kept"><b>Language.</b> Screens are shown in '+(S.lang==='es'?'Spanish':'German')+', translated by us, to show one flow serving every market. Store prices stay as published in dollars; reviews stay word for word in English.</div>';
+  h += '<div class="pn-foot">Ranges are Adapty’s expected effect from tests across 30,000+ subscription apps — not measured lift for Blank Spaces. '
+     + 'Prices, ratings, reviews and feature lines come from your own published material.</div>';
+  document.getElementById('panel').innerHTML = h;
+}
+
+/* ---- views, jumps from the overview ---- */
+function showView(v){
+  if(v!=='proto') stopDemo();
+  document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('.nav-links button[data-view]').forEach(function(b){ b.classList.toggle('on', b.dataset.view===v); });
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.view); }); });
+document.querySelectorAll('.idea[data-jump]').forEach(function(b){
+  b.addEventListener('click',function(){ showView('proto'); jump(b.dataset.jump); });
+});
+document.querySelectorAll('[data-demo]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); startDemo(); }); });
+
+applyStatic(); rain();
+scr.welcome.classList.add('is-active');
+syncScreen(); chrome(); paintChips(); paintPanel();
+if(/[?&]open=proto/.test(location.search)) showView('proto');
+</script>
+</body>
+</html>
